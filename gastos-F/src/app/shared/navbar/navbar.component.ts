@@ -1,9 +1,9 @@
+// src/app/shared/navbar/navbar.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { filter } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
+import { CommonModule }     from '@angular/common';
+import { filter }           from 'rxjs/operators';
+import { AuthService }      from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,24 +24,25 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.authService.isLoggedIn() === null) return;
-    this.updateUserState();
+    // 1) Suscripción inicial y continua al estado de usuario
+    this.authService.user$.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.userFullName = user 
+        ? `${user.firstName} ${user.lastName}` 
+        : '';
+    });
 
-    // Cada vez que cambies de ruta, volvemos a comprobar
+    // 2) También refrescamos al navegar, por si cambias ruta sin recargar
     this.router.events
       .pipe(filter(ev => ev instanceof NavigationEnd))
-      .subscribe(() => this.updateUserState());
-  }
-
-  private updateUserState() {
-    this.isLoggedIn = this.authService.isLoggedIn();
-    if (this.isLoggedIn) {
-      const user = this.authService.getUser();
-      // Ajusta según quieras nombre completo o solo firstName
-      this.userFullName = `${user.firstName} ${user.lastName}`;
-    } else {
-      this.userFullName = '';
-    }
+      .subscribe(() => {
+        // trigger de user$ en caso de refresh de UI
+        const user = this.authService.getUser();
+        this.isLoggedIn = !!user;
+        this.userFullName = user 
+          ? `${user.firstName} ${user.lastName}` 
+          : '';
+      });
   }
 
   redirectToLogin() {
@@ -62,7 +63,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();  // Limpia token y redirige
+    this.authService.logout();  // Esto emite user$ = null y redirige
     this.closeMenus();
   }
 }

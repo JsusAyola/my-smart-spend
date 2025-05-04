@@ -1,0 +1,108 @@
+.limits-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: sans-serif;
+  
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+  
+    form {
+      .card {
+        background: #fff;
+        border-radius: .5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        transition: transform .2s ease;
+        &:hover { transform: translateY(-2px); }
+  
+        h3, h4 {
+          margin: 0 0 .5rem 0;
+          color: #444;
+        }
+      }
+  
+      .global-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+  
+        .limit-select {
+          flex: 1;
+        }
+        .btn-save {
+          background: #4361ee;
+          color: #fff;
+          border: none;
+          padding: .6rem 1.2rem;
+          border-radius: .3rem;
+          cursor: pointer;
+          transition: background .2s ease;
+          &:disabled { opacity: .5; cursor: default; }
+          &:hover:not(:disabled) { background: #3a56d5; }
+        }
+        .progress-info {
+          flex-basis: 100%;
+          margin-top: .5rem;
+          font-size: .9rem;
+          color: #555;
+        }
+        .progress-bar { margin-top: .25rem; }
+      }
+  
+      .grid-cats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+        gap: 1rem;
+  
+        .cat-card {
+          text-align: center;
+  
+          .limit-select {
+            width: 100%;
+            padding: .5rem;
+            border-radius: .3rem;
+            border: 1px solid #ccc;
+            margin-bottom: .5rem;
+          }
+          .small {
+            font-size: .8rem;
+          }
+          .progress-info {
+            margin: .25rem 0;
+            color: #555;
+          }
+        }
+      }
+    }
+  
+    .progress-bar {
+      width: 100%;
+      height: .6rem;
+      background: #eee;
+      border-radius: .3rem;
+      overflow: hidden;
+      &.small { height: .4rem; }
+      .fill {
+        height: 100%;
+        background: #4cc9f0;
+        transition: width .3s;
+      }
+      .fill.warn { background: #f4c430; }
+      .fill.over { background: #ef476f; }
+    }
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 600px) {
+    .global-card {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+  

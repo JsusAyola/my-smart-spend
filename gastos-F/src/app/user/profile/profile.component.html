@@ -1,1 +1,76 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <h2>Mi Perfil</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  
+      <!-- Nombres -->
+      <div class="form-group">
+        <label for="firstName">Nombres</label>
+        <input id="firstName" formControlName="firstName" class="form-input" />
+        <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="error-text">
+          Debes ingresar un nombre válido.
+        </div>
+      </div>
+  
+      <!-- Apellidos -->
+      <div class="form-group">
+        <label for="lastName">Apellidos</label>
+        <input id="lastName" formControlName="lastName" class="form-input" />
+        <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="error-text">
+          Debes ingresar un apellido válido.
+        </div>
+      </div>
+  
+      <!-- Correo (bloqueado) -->
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input id="email" formControlName="email" class="form-input" readonly />
+      </div>
+  
+      <!-- Tipo de documento (bloqueado) -->
+      <div class="form-group">
+        <label for="documentType">Tipo Documento</label>
+        <input id="documentType" formControlName="documentType" class="form-input" readonly />
+      </div>
+  
+      <!-- Número de documento (bloqueado) -->
+      <div class="form-group">
+        <label for="documentNumber">Número Documento</label>
+        <input id="documentNumber" formControlName="documentNumber" class="form-input" readonly />
+      </div>
+  
+      <!-- Teléfono (bloqueado) -->
+      <div class="form-group">
+        <label for="phone">Teléfono</label>
+        <input id="phone" formControlName="phone" class="form-input" readonly />
+      </div>
+  
+      <!-- Ingreso (select) -->
+      <div class="form-group">
+        <label for="income">Ingreso Mensual</label>
+        <select id="income" formControlName="income" class="form-input">
+          <option value="" disabled>Selecciona...</option>
+          <option *ngFor="let opt of incomes" [value]="opt">{{ opt }}</option>
+        </select>
+        <div *ngIf="profileForm.get('income')?.invalid && profileForm.get('income')?.touched" class="error-text">
+          Selecciona tu rango de ingreso.
+        </div>
+      </div>
+  
+      <!-- Objetivo (select) -->
+      <div class="form-group">
+        <label for="goal">Objetivo Financiero</label>
+        <select id="goal" formControlName="goal" class="form-input">
+          <option value="" disabled>Selecciona...</option>
+          <option *ngFor="let opt of goals" [value]="opt">{{ opt }}</option>
+        </select>
+        <div *ngIf="profileForm.get('goal')?.invalid && profileForm.get('goal')?.touched" class="error-text">
+          Selecciona tu objetivo.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Guardando...' : 'Guardar cambios' }}
+      </button>
+    </form>
+  </div>
+  

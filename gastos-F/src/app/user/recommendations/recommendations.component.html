@@ -1,1 +1,22 @@
-<p>recommendations works!</p>
+<div class="recos-container">
+    <h2>📋 Recomendaciones</h2>
+  
+    <!-- Recomendaciones dinámicas -->
+    <section class="dynamic-rec">
+      <h3>Basado en tus límites</h3>
+      <ul>
+        <li *ngFor="let msg of recos">{{ msg }}</li>
+      </ul>
+    </section>
+  
+    <!-- Ejemplos de contexto local -->
+    <section class="local-context">
+      <h3>Contexto financiero local</h3>
+      <div *ngFor="let ex of ejemplos" class="example-card">
+        <p class="question">{{ ex.pregunta }}</p>
+        <p class="value">{{ ex.valorRecomendado }}</p>
+        <p class="explain">{{ ex.explicacion }}</p>
+      </div>
+    </section>
+  </div>
+  

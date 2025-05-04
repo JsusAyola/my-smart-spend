@@ -53,3 +53,38 @@ exports.deleteExpense = async (req, res) => {
     res.status(500).json({ message: 'Error en el servidor.' });
   }
 };
+// 📌 Obtener un gasto por ID
+exports.getExpenseById = async (req, res) => {
+  try {
+    const expense = await Expense.findOne({
+      _id: req.params.id,
+      userId: req.user.id
+    });
+    if (!expense) {
+      return res.status(404).json({ message: 'Gasto no encontrado.' });
+    }
+    res.status(200).json(expense);
+  } catch (error) {
+    console.error('Error obteniendo gasto:', error);
+    res.status(500).json({ message: 'Error en el servidor.' });
+  }
+};
+
+// 📌 Actualizar un gasto existente
+exports.updateExpense = async (req, res) => {
+  try {
+    const { title, amount, category, emotion, date } = req.body;
+    const updated = await Expense.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.id },
+      { title, amount, category, emotion, date },
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ message: 'Gasto no encontrado.' });
+    }
+    res.status(200).json({ message: 'Gasto actualizado', expense: updated });
+  } catch (error) {
+    console.error('Error actualizando gasto:', error);
+    res.status(500).json({ message: 'Error en el servidor.' });
+  }
+};

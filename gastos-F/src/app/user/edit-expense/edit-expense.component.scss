@@ -1,11 +1,10 @@
-/* src/app/user/expense/expense.component.scss */
 .expense-form-container {
     max-width: 500px;
     margin: 2rem auto;
     padding: 1.5rem;
-    background: #ffffff;
+    background: #fff;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   
     h2 {
       text-align: center;
@@ -34,11 +33,21 @@
         &:focus {
           outline: none;
           border-color: #4361ee;
-          box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+          box-shadow: 0 0 0 3px rgba(67,97,238,0.2);
         }
   
         &:disabled {
           background: #f5f5f5;
+        }
+      }
+  
+      .input-group {
+        display: flex;
+        gap: 0.5rem;
+  
+        select.form-input,
+        input.form-input {
+          flex: 1;
         }
       }
   
@@ -71,31 +80,4 @@
       }
     }
   }
-/* src/app/user/expense/expense.component.scss */
-
-.input-group {
-    display: flex;
-    align-items: center;
   
-    .input-group-text {
-      padding: 0.6rem 0.8rem;
-      background: #f4f4f9;
-      border: 1px solid #ccc;
-      border-right: none;
-      border-radius: 0.25rem 0 0 0.25rem;
-      font-weight: 600;
-      color: #444;
-    }
-  
-    .form-input {
-      flex: 1;
-      border-radius: 0 0.25rem 0.25rem 0;
-      border-left: none;
-    }
-  }
-  
-  /* Asegúrate de que tu .form-input tenga borders uniformes: */
-  .form-input {
-    border: 1px solid #ccc !important;
-  }
-    

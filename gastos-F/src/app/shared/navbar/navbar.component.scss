@@ -2,9 +2,9 @@
 
 /* Contenedor principal */
 :host ::ng-deep nav.navbar {
-  background-color: var(--primary-color);
+  background-color: #393E46; /* Charcoal */
   padding: 0.5rem 1rem;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,29 +12,45 @@
 
 /* Logo */
 .navbar-brand {
-  color: white;
+  color: #F4F4F9; /* Off-White */
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
-  transition: var(--transition);
-  &:hover {
-    opacity: 0.9;
-  }
+  transition: all 0.25s ease;
+}
+.navbar-brand:hover {
+  opacity: 0.9;
 }
 
 /* Enlaces de navegación */
 .navbar-nav {
   display: flex;
   gap: 1rem;
-  
-  .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
-    transition: var(--transition);
-    &:hover, &.active {
-      color: white;
-    }
-  }
+}
+.navbar-nav .nav-link {
+  position: relative;
+  color: rgba(244,233,169,0.8); /* Off-White semitransparente */
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #F4F4F9;
+}
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #F4F4F9;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+  left: 0;
 }
 
 /* Sección de acciones (login / usuario) */
@@ -46,70 +62,98 @@
 
 /* Botón de Iniciar Sesión */
 .btn-outline-light {
-  color: white;
-  border-color: rgba(255, 255, 255, 0.8);
-  transition: var(--transition);
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: white;
-  }
+  color: #F4F4F9;
+  border: 1px solid #F4F4F9;
+  transition: all 0.25s ease;
+}
+.btn-outline-light:hover {
+  background-color: #2E3138; /* Slightly darker Charcoal */
+  border-color: #2E3138;
+  color: #F4F4F9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.btn-outline-light:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.btn-outline-light {
+  cursor: pointer;
 }
 
 /* Menú de usuario */
 .user-menu {
   position: relative;
+}
 
-  .user-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    cursor: pointer;
-    transition: var(--transition);
-    &:hover {
-      opacity: 0.9;
-    }
-  }
+/* Botón usuario */
+.user-btn {
+  background: none;
+  border: 1px solid #F4F4F9;
+  color: #F4F4F9;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.user-btn:hover {
+  background: rgba(244,233,169,0.1);
+  transform: scale(1.05);
+}
 
-  .user-dropdown {
-    position: absolute;
-    top: 110%;
-    right: 0;
-    background: white;
-    min-width: 160px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+/* Dropdown */
+.user-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #F4F4F9;
+  min-width: 180px;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+}
+.user-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  animation: dropdownFadeIn 0.25s ease-out;
+}
+
+.user-dropdown .dropdown-item {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: #22223B; /* Dark Slate */
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.user-dropdown .dropdown-item:hover {
+  background-color: #FFD166; /* Mustard */
+  color: #393E46;            /* Charcoal for contrast */
+}
+.user-dropdown .logout-item:hover {
+  background-color: #D0003A; /* Red error */
+  color: white;
+  font-weight: bold;
+}
+
+/* Animaciones */
+@keyframes dropdownFadeIn {
+  from {
     opacity: 0;
-    visibility: hidden;
     transform: translateY(-10px);
-    transition: var(--transition);
-
-    &.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .dropdown-item {
-      display: block;
-      padding: 0.5rem 1rem;
-      color: var(--dark-color);
-      text-decoration: none;
-      transition: var(--transition);
-      &:hover {
-        background-color: var(--light-color);
-      }
-    }
-
-    .divider {
-      height: 1px;
-      background-color: var(--gray-color);
-      margin: 0.5rem 0;
-    }
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -126,149 +170,5 @@
   }
   .navbar-actions {
     margin-top: 0.5rem;
-  }
-}
-/* Animación de entrada para el dropdown */
-@keyframes dropdownFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Estilos adicionales para los ítems del dropdown */
-.user-dropdown {
-  .dropdown-item {
-    position: relative;
-    padding: 0.6rem 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    
-    &:hover {
-      background-color: var(--primary-color);
-      color: white;
-      cursor: pointer;          /* mano al pasar el cursor */
-    }
-    
-    &.logout-item:hover {
-      background-color: var(--error-color);
-      color: rgb(248, 9, 9);
-      font-weight: 600;
-    }
-  }
-
-  /* Cuando aparece el menú */
-  &.show {
-    animation: dropdownFadeIn 0.25s ease-out;
-  }
-}
-
-/* Botón de usuario: pequeño bounce al abrir/cerrar */
-.user-btn {
-  transition: transform 0.2s ease;
-  &:hover {
-    transform: scale(1.05);
-  }
-  &.active {  /* asume que le añades la clase .active al toggle */
-    animation: bounce 0.3s;
-  }
-}
-
-/* Keyframes bounce */
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-5px); }
-}
-
-/* Hover en enlaces principales del navbar */
-.navbar-nav .nav-link {
-  position: relative;
-  overflow: hidden;
-  
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s ease, left 0.3s ease;
-  }
-
-  &:hover:before {
-    width: 100%;
-    left: 0;
-  }
-}
-/* Cursor de mano en todos los botones clicables */
-.btn-outline-light,
-.user-btn,
-.user-dropdown .dropdown-item {
-  cursor: pointer;
-}
-
-/* ESTILO DEL BOTÓN “INICIAR SESIÓN” */
-.btn-outline-light {
-  color: white;
-  border-color: rgba(255,255,255,0.8);
-
-  &:hover {
-    background-color: var(--primary-dark);
-    border-color: var(--primary-dark);
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  }
-}
-
-/* ANIMACIÓN suave al presionar */
-.btn-outline-light:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* DROPDOWN: colores y animaciones */
-.user-dropdown {
-  .dropdown-item {
-    transition: background-color 0.25s ease, color 0.25s ease;
-
-    &:hover {
-      background-color: var(--secondary-color);
-      color: rgb(215, 5, 5);
-    }
-
-    &.logout-item:hover {
-      background-color: var(--error-color);
-      color: rgb(217, 9, 9);
-      font-weight: bold;
-    }
-  }
-
-  &.show {
-    animation: dropdownFadeIn 0.3s ease-out;
-  }
-}
-
-/* Subrayado animado en nav-links */
-.navbar-nav .nav-link {
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background: white;
-    left: 50%;
-    bottom: -2px;
-    transition: width 0.3s ease, left 0.3s ease;
-  }
-  &:hover::after,
-  &.active::after {
-    width: 100%;
-    left: 0;
   }
 }

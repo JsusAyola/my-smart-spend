@@ -1,1 +1,32 @@
-<p>expenses-list works!</p>
+<div class="list-container">
+  <h2>Mis Gastos</h2>
+  <a routerLink="/expenses/create" class="btn btn-secondary">+ Nuevo</a>
+
+  <div *ngIf="isLoading" class="loading">Cargando gastos…</div>
+
+  <table *ngIf="!isLoading && expenses.length" class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Título</th>
+        <th>Monto</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of expenses">
+        <td>{{ e.date | date:'shortDate' }}</td>
+        <td>{{ e.title }}</td>
+        <td>{{ e.amount | currency:'COP' }}</td>
+        <td>{{ e.category }}</td>
+        <td class="actions">
+          <button (click)="edit(e._id)" class="btn btn-sm btn-info">✏️</button>
+          <button (click)="remove(e._id)" class="btn btn-sm btn-danger">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!isLoading && !expenses.length">No tienes gastos registrados.</p>
+</div>

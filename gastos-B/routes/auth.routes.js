@@ -1,17 +1,19 @@
-const express = require('express');
-const router = express.Router();
+const express        = require('express');
+const router         = express.Router();
 const authController = require('../controllers/auth.controller');
+const authMiddleware = require('../middlewares/auth.middleware');
 
-// Ruta para registrar usuario
+// Registro y login
 router.post('/register', authController.register);
+router.post('/login',    authController.login);
 
-// Ruta para login de usuario
-router.post('/login', authController.login);
+// Obtener perfil (protegido)
+router.get('/me', authMiddleware, authController.getProfile);
 
-// Ruta para obtener perfil de usuario
-router.get('/me', authController.getProfile);
+// ←←← Nueva ruta para actualizar perfil (protegido) ←←←
+router.put('/me', authMiddleware, authController.updateProfile);
 
-// Ruta para logout
+// Logout
 router.post('/logout', authController.logout);
 
 module.exports = router;

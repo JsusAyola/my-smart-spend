@@ -1,0 +1,85 @@
+<div class="expense-form-container">
+    <h2>Editar Gasto</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+      <!-- Título -->
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input id="title" formControlName="title" class="form-input" [disabled]="isLoading" />
+        <div *ngIf="form.get('title')?.touched && form.get('title')?.invalid" class="error">
+          Obligatorio, sólo letras y espacios.
+        </div>
+      </div>
+  
+      <!-- Monto -->
+      <div class="form-group">
+        <label for="amountSelect">Monto (COP)</label>
+        <div class="input-group">
+          <select id="amountSelect" formControlName="amountSelect" class="form-input">
+            <option value="" disabled>Selecciona un monto</option>
+            <option *ngFor="let n of presetAmounts" [value]="n">COP {{ n | number }}</option>
+            <option value="other">Otro…</option>
+          </select>
+          <input
+            *ngIf="form.value.amountSelect==='other'"
+            id="amountManual"
+            type="number"
+            formControlName="amountManual"
+            class="form-input"
+            [min]="1000"
+            step="1000"
+            [disabled]="isLoading"
+          />
+        </div>
+        <div *ngIf="form.get('amountSelect')?.touched && form.get('amountSelect')?.invalid" class="error">
+          Selecciona un monto.
+        </div>
+        <div *ngIf="form.get('amountManual')?.touched && form.get('amountManual')?.invalid" class="error">
+          Monto mínimo 1.000 COP.
+        </div>
+      </div>
+  
+      <!-- Categoría -->
+      <div class="form-group">
+        <label for="category">Categoría</label>
+        <select id="category" formControlName="category" class="form-input" [disabled]="isLoading">
+          <option value="" disabled>Selecciona</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+  
+      <!-- Emoción -->
+      <div class="form-group">
+        <label for="emotion">Emoción</label>
+        <select id="emotion" formControlName="emotion" class="form-input" [disabled]="isLoading">
+          <option value="" disabled>Selecciona</option>
+          <option *ngFor="let e of emotions" [value]="e">{{ e }}</option>
+        </select>
+      </div>
+  
+      <!-- Fecha -->
+      <div class="form-group">
+        <label for="date">Fecha</label>
+        <input
+          id="date"
+          type="date"
+          formControlName="date"
+          class="form-input"
+          [max]="today"
+          [disabled]="isLoading"
+        />
+        <div *ngIf="form.get('date')?.hasError('required') && form.get('date')?.touched" class="error">
+          La fecha es obligatoria.
+        </div>
+        <div *ngIf="form.get('date')?.hasError('futureDate')" class="error">
+          No puede ser futura.
+        </div>
+      </div>
+  
+      <!-- Botón -->
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading">
+        {{ isLoading ? 'Guardando…' : 'Actualizar Gasto' }}
+      </button>
+    </form>
+  </div>
+  

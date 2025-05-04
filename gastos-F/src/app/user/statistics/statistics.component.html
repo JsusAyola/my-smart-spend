@@ -1,1 +1,40 @@
-<p>statistics works!</p>
+<div class="stats-container">
+    <h2>Estadísticas</h2>
+  
+    <div class="summary">
+      <div class="badge">
+        Promedio diario: {{ avgDaily | currency:'COP' }}
+      </div>
+      <div class="badge">
+        Hoy: {{ todayTotal | currency:'COP' }}
+      </div>
+    </div>
+  
+    <div class="alerts" *ngIf="alerts.length">
+      <h3>Alertas</h3>
+      <ul>
+        <li *ngFor="let msg of alerts">{{ msg }}</li>
+      </ul>
+    </div>
+  
+    <div class="chart-wrapper">
+      <h3>Gasto por Categoría</h3>
+      <canvas #pieCanvas></canvas>
+    </div>
+  
+    <div class="chart-wrapper">
+      <h3>Gasto por Emoción</h3>
+      <canvas #emoCanvas></canvas>
+    </div>
+  
+    <div class="chart-wrapper">
+      <h3>Top 5 Gastos</h3>
+      <canvas #barCanvas></canvas>
+    </div>
+  
+    <div class="chart-wrapper">
+      <h3>Evolución Mensual</h3>
+      <canvas #lineCanvas></canvas>
+    </div>
+  </div>
+  

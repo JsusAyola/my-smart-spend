@@ -1,0 +1,9 @@
+<section class="education-container">
+    <h2>Educación Financiera Local</h2>
+    <div *ngFor="let e of ejemplos" class="ejemplo-card">
+      <h3>{{ e.pregunta }}</h3>
+      <p><strong>Recomendado:</strong> {{ e.valorRecomendado }}</p>
+      <small>{{ e.explicacion }}</small>
+    </div>
+  </section>
+  

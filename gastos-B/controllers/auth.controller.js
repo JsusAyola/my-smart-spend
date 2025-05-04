@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 
 // Configuración de seguridad
-const JWT_SECRET = process.env.JWT_SECRET || 'secreto-ultra-seguro-que-luego-cambiaremos';
+const JWT_SECRET = process.env.JWT_SECRET;  
+if (!JWT_SECRET) {
+  console.error('⚠️  JWT_SECRET no está definido en .env');
+  process.exit(1);
+}
 const JWT_EXPIRES_IN = '7d'; // Tiempo de expiración del token
 
 // 📌 Registrar un nuevo usuario
@@ -206,6 +210,47 @@ exports.getProfile = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Error en el servidor al obtener perfil.',
+    });
+  }
+};
+// 📌 Actualizar perfil
+exports.updateProfile = async (req, res) => {
+  try {
+    // ID del usuario extraído del token por authMiddleware
+    const userId = req.user.id;
+
+    // Campos permitidos a actualizar
+    const allowed = ['firstName','lastName','income','goal','phone'];
+    const updates = {};
+    allowed.forEach(field => {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    });
+
+    // Actualizamos y devolvemos el usuario sin password ni __v
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates },
+      { new: true, select: '-password -__v' }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado.'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user: updatedUser
+    });
+  } catch (error) {
+    console.error('Error en updateProfile:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error en el servidor al actualizar perfil.'
     });
   }
 };

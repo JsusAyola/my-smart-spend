@@ -1,0 +1,32 @@
+.education-container {
+    padding: 1.5rem;
+    background: #F4F4F9; /* off-white */
+    border-radius: 0.5rem;
+  
+    h2 {
+      color: #393E46; /* charcoal */
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .ejemplo-card {
+    background: white;
+    border-left: 4px solid #FFD166; /* mustard */
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  
+    h3 {
+      margin-top: 0;
+      color: #22223B; /* dark slate */
+    }
+    p {
+      margin: 0.5rem 0;
+      color: #393E46;
+    }
+    small {
+      color: #7F8A93;
+    }
+  }
+  
