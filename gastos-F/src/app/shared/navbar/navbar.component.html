@@ -1,0 +1,97 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/inicio">
+      Smart Spend
+    </a>
+    
+
+    <!-- Botón Toggler para móvil -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Links de navegación -->
+      <ul class="navbar-nav d-flex flex-column flex-lg-row text-center w-100 justify-content-center mb-3 mb-lg-0">
+        <li class="nav-item px-2">
+          <a
+            class="nav-link"
+            routerLink="/inicio"
+            routerLinkActive="active"
+            (click)="closeMenus()"
+          >Inicio</a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            class="nav-link"
+            routerLink="/sobre-nosotros"
+            routerLinkActive="active"
+            (click)="closeMenus()"
+          >Sobre Nosotros</a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            class="nav-link"
+            routerLink="/beneficios"
+            routerLinkActive="active"
+            (click)="closeMenus()"
+          >Beneficios</a>
+        </li>
+        <li class="nav-item px-2">
+          <a
+            class="nav-link"
+            routerLink="/contacto"
+            routerLinkActive="active"
+            (click)="closeMenus()"
+          >Contacto</a>
+        </li>
+      </ul>
+
+      <!-- Acciones de usuario -->
+      <div class="navbar-actions d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-end">
+        <!-- Botón Iniciar Sesión (móvil queda abajo, desktop a la derecha) -->
+        <button
+          *ngIf="!isLoggedIn"
+          class="btn btn-outline-light mb-2 mb-lg-0 me-lg-3"
+          (click)="redirectToLogin()"
+        >
+          Iniciar sesión
+        </button>
+
+        <!-- Menú de usuario -->
+        <div *ngIf="isLoggedIn" class="user-menu position-relative">
+          <button
+            class="user-btn btn btn-outline-light d-flex align-items-center"
+            type="button"
+            (click)="toggleUserMenu()"
+            [attr.aria-expanded]="showUserMenu"
+          >
+            <span class="user-name">{{ userFullName }}</span>
+            <span class="user-arrow ms-2">▼</span>
+          </button>
+
+          <div class="user-dropdown dropdown-menu dropdown-menu-end" [class.show]="showUserMenu">
+            <a routerLink="/profile" class="dropdown-item" (click)="closeMenus()">Mi Perfil</a>
+            <a routerLink="/expenses/create" class="dropdown-item" (click)="closeMenus()">Agregar Gasto</a>
+            <a routerLink="/expenses/list" class="dropdown-item" (click)="closeMenus()">Mis Gastos</a>
+            <a routerLink="/statistics" class="dropdown-item" (click)="closeMenus()">Estadísticas</a>
+            <a routerLink="/limits/manage" class="dropdown-item" (click)="closeMenus()">Límites</a>
+            <a routerLink="/recommendations" class="dropdown-item" (click)="closeMenus()">Recomendaciones</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" (click)="logout()">Cerrar sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

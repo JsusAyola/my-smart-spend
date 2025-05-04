@@ -1,0 +1,95 @@
+<div class="login-container">
+    <!-- Sección izquierda con imagen de fondo -->
+    <div class="login-hero">
+      <div class="hero-content">
+        <h1>Bienvenido de vuelta</h1>
+        <p>Accede a tu cuenta para descubrir todas las funcionalidades que tenemos para ti</p>
+        
+        <div class="features-list">
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <span>Acceso instantáneo a tu dashboard</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <span>Gestión de tu perfil personalizado</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <span>Soporte prioritario 24/7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Sección derecha con formulario -->
+    <div class="login-form-section">
+      <div class="form-container">
+        <div class="logo">
+          <img src="/assets/logo.svg" alt="Logo de la empresa">
+        </div>
+        
+        <h2>Iniciar sesión</h2>
+        <p class="welcome-text">Ingresa tus credenciales para acceder</p>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="tucorreo@ejemplo.com"
+              [ngClass]="{ 'invalid': loginForm.get('email')?.touched && loginForm.get('email')?.invalid }"
+            >
+          </div>
+  
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <div class="password-input">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                formControlName="password"
+                placeholder="Ingresa tu contraseña"
+                [ngClass]="{ 'invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid }"
+              >
+              <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+              </button>
+            </div>
+          </div>
+  
+          <div class="form-options">
+            <a routerLink="/auth/forgot-password" class="forgot-password">¿Olvidaste tu contraseña?</a>
+          </div>
+  
+          <button type="submit" class="login-button" [disabled]="isLoading">
+            <span *ngIf="!isLoading">
+              <fa-icon [icon]="faSignInAlt"></fa-icon> Iniciar sesión
+            </span>
+            <span *ngIf="isLoading">
+                <fa-icon [icon]="faSpinner"></fa-icon>
+            </span>
+          </button>
+        </form>
+  
+        <div class="register-prompt">
+          ¿No tienes cuenta? <a routerLink="/auth/register" class="register-link">Regístrate aquí</a>
+        </div>
+  
+        <div class="social-login">
+          <p>O inicia sesión con:</p>
+          <div class="social-buttons">
+            <button type="button" class="social-button google">
+              <img src="/assets/icons/google.svg" alt="Google"> Google
+            </button>
+            <button type="button" class="social-button facebook">
+              <img src="/assets/icons/facebook.svg" alt="Facebook"> Facebook
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

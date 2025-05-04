@@ -1,0 +1,61 @@
+<div class="expense-form-container">
+    <h2>Agregar Gasto</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Título -->
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input id="title" formControlName="title" class="form-input" />
+        <div *ngIf="form.get('title')?.touched && form.get('title')?.invalid" class="error">
+          El título es obligatorio.
+        </div>
+      </div>
+  
+      <!-- Monto -->
+      <div class="form-group">
+        <label for="amount">Monto</label>
+        <input id="amount" type="number" formControlName="amount" class="form-input" />
+        <div *ngIf="form.get('amount')?.touched && form.get('amount')?.invalid" class="error">
+          Ingresa un monto válido (> 0).
+        </div>
+      </div>
+  
+      <!-- Categoría -->
+      <div class="form-group">
+        <label for="category">Categoría</label>
+        <select id="category" formControlName="category" class="form-input">
+          <option value="" disabled>Selecciona una categoría</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
+        <div *ngIf="form.get('category')?.touched && form.get('category')?.invalid" class="error">
+          La categoría es obligatoria.
+        </div>
+      </div>
+  
+      <!-- Emoción -->
+      <div class="form-group">
+        <label for="emotion">Emoción</label>
+        <select id="emotion" formControlName="emotion" class="form-input">
+          <option value="" disabled>Selecciona una emoción</option>
+          <option *ngFor="let e of emotions" [value]="e">{{ e }}</option>
+        </select>
+        <div *ngIf="form.get('emotion')?.touched && form.get('emotion')?.invalid" class="error">
+          La emoción es obligatoria.
+        </div>
+      </div>
+  
+      <!-- Fecha -->
+      <div class="form-group">
+        <label for="date">Fecha</label>
+        <input id="date" type="date" formControlName="date" class="form-input" />
+        <div *ngIf="form.get('date')?.touched && form.get('date')?.invalid" class="error">
+          La fecha es obligatoria.
+        </div>
+      </div>
+  
+      <!-- Botón -->
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Agregar Gasto
+      </button>
+    </form>
+  </div>
+  

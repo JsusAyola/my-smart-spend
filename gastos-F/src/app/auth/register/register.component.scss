@@ -1,0 +1,306 @@
+:root {
+    --primary-color: #4361ee;
+    --primary-dark: #3a56d5;
+    --error-color: #f72585;
+    --success-color: #4cc9f0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gray-color: #6c757d;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  .register-container {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7ff;
+  }
+  
+  .register-left {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register-hero {
+    max-width: 500px;
+    text-align: center;
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      color: #212529;
+    }
+  }
+  
+  .register-image {
+    margin: 2rem 0;
+    
+    .image-placeholder {
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+  .register-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #212529;
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      fa-icon {
+        color: var(--success-color);
+      }
+    }
+  }
+  
+  .register-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .auth-card {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+  }
+  
+  .auth-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: var(--gray-color);
+    }
+  }
+  
+  .auth-form {
+    padding: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.2rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+    }
+    
+    &.invalid {
+      border-color: var(--error-color);
+    }
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    
+    .half-width {
+      flex: 1;
+    }
+  }
+  
+  .error-text {
+    color: #f72585;  /* Rojo para el texto de error */
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+  
+  
+  .auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #9b4dca; /* Color morado para el fondo */
+    color: white; /* Asegura que el texto sea blanco para un buen contraste */
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  
+    /* Cambio de color al pasar el mouse */
+    &:hover:not(:disabled) {
+      background: #7e33b8; /* Fondo morado más oscuro al hacer hover */
+      transform: translateY(-2px);
+    }
+  
+    /* Estilo del botón cuando está deshabilitado */
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  
+    /* Estilo del texto del botón */
+    span {
+      font-weight: bold;
+      color: white; /* Asegura que el texto siempre sea blanco */
+    }
+  
+    /* Estilo para el ícono */
+    fa-icon {
+      margin-right: 0.5rem;
+      color: white; /* Asegura que el ícono también sea blanco */
+    }
+  
+    /* Aseguramos que no se vea blanco en el estado inicial */
+    background-color: #9b4dca; /* Color morado inicial */
+  }
+  
+  
+  .auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--gray-color);
+    
+    .auth-link {
+      color: #9b4dca; /* Morado para el enlace */
+      text-decoration: none;
+      font-weight: 600;
+      
+      &:hover {
+        text-decoration: underline;
+        color: #7e33b8; /* Morado más oscuro al pasar el mouse */
+      }
+    }
+    
+  }
+  
+  .error-message {
+    padding: 0.75rem;
+    background: rgba(247, 37, 133, 0.1);
+    color: var(--error-color);
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .register-container {
+      flex-direction: column;
+    }
+    
+    .register-left, .register-right {
+      padding: 1.5rem;
+    }
+    
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+      
+      .half-width {
+        width: 100%;
+      }
+    }
+  }
+  
+  .register-image {
+    margin: 2rem 0;
+    position: relative; /* Necesario para que los elementos internos se ubiquen sobre la imagen */
+    height: 200px;
+    background-image: url('/fotos/ctg.jpg'); /* Ruta a tu imagen */
+    background-size: cover; /* Para cubrir todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    border-radius: var(--border-radius); /* Redondea las esquinas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-placeholder {
+    width: 100%; /* Asegúrate de que el contenedor de la imagen ocupe todo el espacio disponible */
+    height: 100%; /* Hace que la imagen cubra todo el contenedor */
+    border-radius: var(--border-radius); /* Opcional: agrega bordes redondeados si deseas */
+  }
+  
+  /* En tu archivo de estilos */
+  .swal-confirm-button {
+    background-color: #4361ee !important;
+    border: none !important;
+    padding: 10px 24px !important;
+    border-radius: 8px !important;
+  }
+  
+  .swal-title {
+    color: #2d3748 !important;
+  }
+  
+  .swal-text {
+    font-size: 16px !important;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+    }
+    
+    &.invalid {
+      border-color: var(--error-color);
+    }
+  }
+  
