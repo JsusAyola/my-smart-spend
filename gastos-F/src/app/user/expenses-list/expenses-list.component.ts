@@ -3,6 +3,7 @@ import { CommonModule }      from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ExpenseService, Expense } from '../../services/expense.service';
 import Swal                  from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';  // Importa HttpErrorResponse
 
 @Component({
   selector: 'app-expenses-list',
@@ -26,14 +27,15 @@ export class ExpensesListComponent implements OnInit {
 
   load() {
     this.isLoading = true;
-    this.svc.list().subscribe({
+    this.svc.getUserExpenses().subscribe({  // Reemplazamos list() por getUserExpenses()
       next: list => {
         this.expenses = list;
         this.isLoading = false;
       },
-      error: err => {
+      error: (err: HttpErrorResponse) => {  // Especificamos el tipo HttpErrorResponse
         console.error('Error obteniendo gastos', err);
         this.isLoading = false;
+        Swal.fire('Error', 'Hubo un problema al obtener los gastos.', 'error');
       }
     });
   }
@@ -60,7 +62,7 @@ export class ExpensesListComponent implements OnInit {
             Swal.fire('Eliminado','Gasto borrado.','success');
             this.load();
           },
-          error: err => {
+          error: (err: HttpErrorResponse) => {  // Especificamos el tipo HttpErrorResponse
             console.error('Error eliminando gasto', err);
             Swal.fire('Error','No se pudo eliminar.','error');
           }

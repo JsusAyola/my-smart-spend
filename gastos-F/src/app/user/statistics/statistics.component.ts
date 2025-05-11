@@ -35,12 +35,13 @@ export class StatisticsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private svc: ExpenseService) {}
 
-  ngOnInit() {
-    // Polling cada 30s, emitiendo inmediatamente
-    this.pollingSub = interval(30000)
-      .pipe(startWith(0), switchMap(() => this.svc.list()))
-      .subscribe(list => this.updateAll(list));
-  }
+ ngOnInit() {
+  // Polling cada 30s, emitiendo inmediatamente
+  this.pollingSub = interval(30000)
+    .pipe(startWith(0), switchMap(() => this.svc.getUserExpenses())) // Cambié list() por getUserExpenses()
+    .subscribe(list => this.updateAll(list));
+}
+
 
   ngAfterViewInit() {
     // en caso de que los datos lleguen antes

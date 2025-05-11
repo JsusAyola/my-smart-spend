@@ -1,8 +1,6 @@
-<!-- src/app/user/expense/expense.component.html -->
 <div class="expense-form-container">
   <h2>Agregar Gasto</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <!-- Título -->
     <div class="form-group">
       <label for="title">Título</label>
@@ -20,6 +18,7 @@
       </div>
     </div>
 
+    <!-- Monto -->
     <div class="form-group">
       <label for="amountSelect">Monto (COP)</label>
       <div class="input-group">
@@ -51,8 +50,6 @@
         Monto mínimo 1.000 COP (incrementos de 1.000).
       </div>
     </div>
-  
-
 
     <!-- Categoría -->
     <div class="form-group">
@@ -96,27 +93,17 @@
         No puedes seleccionar una fecha futura.
       </div>
     </div>
-<!--
-<div class="form-group">
-  <label for="date">Fecha</label>
-  <input
-    id="date"
-    type="date"
-    formControlName="date"
-    class="form-input"
-    [disabled]="isLoading"
-  />
-  <div *ngIf="form.get('date')?.touched && form.get('date')?.invalid" class="error">
-    La fecha es obligatoria.
-  </div>
-</div>
--->
-
 
     <!-- Botón -->
-    <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading">
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading || isLimitReached">
       <span *ngIf="!isLoading">Agregar Gasto</span>
       <span *ngIf="isLoading">Guardando…</span>
     </button>
+
+    <!-- Límite alcanzado en plan Free -->
+    <div *ngIf="isLimitReached" class="alert alert-warning mt-3">
+      Has alcanzado el límite de 3 gastos en el plan gratuito. ¡Actualiza a Premium para agregar más!
+      <button (click)="upgradeToPremium()" class="btn btn-sm btn-warning mt-2">Actualizar a Premium</button>
+    </div>
   </form>
 </div>

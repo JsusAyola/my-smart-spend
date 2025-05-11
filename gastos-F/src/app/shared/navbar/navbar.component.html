@@ -1,10 +1,10 @@
- <nav class="navbar navbar-expand-lg navbar-dark">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
     <!-- Logo -->
     <a class="navbar-brand" routerLink="/inicio">
       Smart Spend
     </a>
-    
 
     <!-- Botón Toggler para móvil -->
     <button
@@ -82,6 +82,7 @@
 
           <div class="user-dropdown dropdown-menu dropdown-menu-end" [class.show]="showUserMenu">
             <a routerLink="/profile" class="dropdown-item" (click)="closeMenus()">Mi Perfil</a>
+            <a routerLink="/upgrade-plan" class="dropdown-item" (click)="closeMenus()">💎Mejora tu plan</a>
             <a routerLink="/expenses/create" class="dropdown-item" (click)="closeMenus()">Agregar Gasto</a>
             <a routerLink="/expenses/list" class="dropdown-item" (click)="closeMenus()">Mis Gastos</a>
             <a routerLink="/statistics" class="dropdown-item" (click)="closeMenus()">Estadísticas</a>
@@ -96,3 +97,11 @@
     </div>
   </div>
 </nav>
+
+<!-- Contenedor de contenido -->
+<div class="content-wrapper">
+  <div class="main-content">
+    <!-- Aquí va el contenido de la página -->
+
+  </div>
+</div>

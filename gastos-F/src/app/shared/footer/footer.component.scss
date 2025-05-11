@@ -1,0 +1,63 @@
+/* footer.component.scss */
+
+.footer {
+  background-color: #393E46; /* Color de fondo oscuro */
+  color: #F4F4F9; /* Color de texto claro */
+  padding: 1.5rem 1rem; /* Menos padding para hacer el footer más compacto */
+  font-size: 0.9rem;
+
+  /* Estilo de las secciones del footer */
+  .footer-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-description {
+    font-size: 0.9rem;
+  }
+
+  .footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      strong {
+        color: #FFD166; /* Color para los títulos */
+      }
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: rgba(244, 244, 244, 0.6); /* Texto más tenue para los derechos de autor */
+  }
+
+  /* Estilo responsive */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 1rem;
+    }
+
+    .footer-title {
+      text-align: center;
+    }
+
+    .footer-description {
+      text-align: center;
+    }
+
+    .footer-contact {
+      text-align: center;
+    }
+
+    .footer-bottom {
+      font-size: 0.75rem;
+    }
+  }
+}

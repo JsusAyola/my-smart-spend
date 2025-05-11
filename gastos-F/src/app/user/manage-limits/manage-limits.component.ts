@@ -55,26 +55,28 @@ export class ManageLimitsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    const saved = localStorage.getItem(this.STORAGE_KEY);
-    if (saved) {
-      this.limits = JSON.parse(saved);
-      this.limitsForm.patchValue(this.limits);
-    }
-
-    this.expenseSvc.list().subscribe(list => {
-      const month = new Date().toISOString().slice(0,7);
-      this.totalThisMonth = 0;
-      this.totalsByCat = {};
-      list.forEach(e => {
-        const m = new Date(e.date!).toISOString().slice(0,7);
-        if (m === month) {
-          this.totalThisMonth += e.amount;
-          this.totalsByCat[e.category] = (this.totalsByCat[e.category]||0) + e.amount;
-        }
-      });
-    });
+ngOnInit() {
+  const saved = localStorage.getItem(this.STORAGE_KEY);
+  if (saved) {
+    this.limits = JSON.parse(saved);
+    this.limitsForm.patchValue(this.limits);
   }
+
+  // Cambié list() por getUserExpenses()
+  this.expenseSvc.getUserExpenses().subscribe(list => {  // Aquí usamos getUserExpenses()
+    const month = new Date().toISOString().slice(0,7);
+    this.totalThisMonth = 0;
+    this.totalsByCat = {};
+    list.forEach(e => {
+      const m = new Date(e.date!).toISOString().slice(0,7);
+      if (m === month) {
+        this.totalThisMonth += e.amount;
+        this.totalsByCat[e.category] = (this.totalsByCat[e.category] || 0) + e.amount;
+      }
+    });
+  });
+}
+
 
   saveLimits() {
     if (this.limitsForm.invalid) return;

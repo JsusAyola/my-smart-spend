@@ -30,39 +30,40 @@ export class RecommendationsComponent implements OnInit {
     private expenseSvc: ExpenseService
   ) {}
 
-  ngOnInit() {
-    // 1) Contexto local
-    this.ejemplos = this.localCtx.getEjemplos();
-    console.log('Ejemplos cargados:', this.ejemplos);
+ngOnInit() {
+  // 1) Contexto local
+  this.ejemplos = this.localCtx.getEjemplos();
+  console.log('Ejemplos cargados:', this.ejemplos);
 
-    // 2) Límites
-    const saved = localStorage.getItem(this.STORAGE_KEY);
-    if (saved) {
-      this.limits = JSON.parse(saved);
-    }
-    console.log('Límites desde localStorage:', this.limits);
-
-    // 3) Gastos y recomendaciones
-    this.expenseSvc.list().subscribe(list => {
-      console.log('Gastos recibidos:', list);
-
-      const month = new Date().toISOString().slice(0,7);
-      this.totalThisMonth = 0;
-      this.totalsByCat = {};
-
-      for (const e of list) {
-        const m = new Date(e.date!).toISOString().slice(0,7);
-        if (m === month) {
-          this.totalThisMonth += e.amount;
-          this.totalsByCat[e.category] = (this.totalsByCat[e.category]||0) + e.amount;
-        }
-      }
-      console.log(`Totales mes (${month}):`, this.totalThisMonth, this.totalsByCat);
-
-      this.buildRecommendations();
-      console.log('Recomendaciones generadas:', this.recos);
-    });
+  // 2) Límites
+  const saved = localStorage.getItem(this.STORAGE_KEY);
+  if (saved) {
+    this.limits = JSON.parse(saved);
   }
+  console.log('Límites desde localStorage:', this.limits);
+
+  // 3) Gastos y recomendaciones
+  this.expenseSvc.getUserExpenses().subscribe(list => { // Cambié list() por getUserExpenses()
+    console.log('Gastos recibidos:', list);
+
+    const month = new Date().toISOString().slice(0, 7);
+    this.totalThisMonth = 0;
+    this.totalsByCat = {};
+
+    for (const e of list) {
+      const m = new Date(e.date!).toISOString().slice(0, 7);
+      if (m === month) {
+        this.totalThisMonth += e.amount;
+        this.totalsByCat[e.category] = (this.totalsByCat[e.category] || 0) + e.amount;
+      }
+    }
+    console.log(`Totales mes (${month}):`, this.totalThisMonth, this.totalsByCat);
+
+    this.buildRecommendations();
+    console.log('Recomendaciones generadas:', this.recos);
+  });
+}
+
 
   private buildRecommendations() {
     this.recos = [];

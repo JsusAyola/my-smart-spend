@@ -11,6 +11,7 @@ import {
 import { ActivatedRoute, Router }   from '@angular/router';
 import { ExpenseService, Expense }  from '../../services/expense.service';
 import Swal                          from 'sweetalert2';
+import { HttpErrorResponse }        from '@angular/common/http';  // Importamos HttpErrorResponse
 
 @Component({
   selector: 'app-edit-expense',
@@ -103,7 +104,7 @@ export class EditExpenseComponent implements OnInit {
   
         this.isLoading = false;
       },
-      error: err => {
+      error: (err: HttpErrorResponse) => {  // Especificamos el tipo HttpErrorResponse
         console.error('Error cargando gasto', err);
         this.isLoading = false;
         Swal.fire('Error','No se pudo cargar el gasto.','error');
@@ -144,7 +145,7 @@ export class EditExpenseComponent implements OnInit {
         });
         this.router.navigate(['/expenses/list']);
       },
-      error: err => {
+      error: (err: HttpErrorResponse) => {  // Especificamos el tipo HttpErrorResponse
         console.error('Error actualizando gasto', err);
         Swal.fire('Error','No se pudo actualizar.','error');
         this.isLoading = false;

@@ -1,0 +1,89 @@
+<div class="container plan-selector">
+  <h2 class="text-center mb-4">
+    Tu Plan Actual:
+    <span class="badge bg-dark text-uppercase">{{ currentPlan }}</span>
+  </h2>
+
+  <!-- Selector de periodicidad global -->
+  <div class="billing-period mb-4">
+    <h4 class="text-center mb-3">Elige tu periodicidad:</h4>
+    <div class="period-options">
+      <button 
+        [class.active]="isMonthly" 
+        (click)="selectBilling('monthly')"
+        class="period-option"
+      >
+        <i class="bi bi-calendar-month"></i> Pago Mensual
+      </button>
+      <button 
+        [class.active]="!isMonthly" 
+        (click)="selectBilling('yearly')"
+        class="period-option"
+      >
+        <i class="bi bi-calendar-check"></i> Pago Anual
+        <span class="badge bg-success">Ahorra 16%</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="plans-grid">
+    <!-- Free -->
+    <div class="plan-card free" [class.active]="currentPlan === 'free'">
+      <div class="plan-header">
+        <h3>Plan Gratuito 🆓</h3>
+        <div class="price-badge">GRATIS</div>
+      </div>
+      <ul>
+        <li>Hasta 3 gastos</li>
+        <li>Funciones básicas</li>
+        <li>Ideal para empezar</li>
+      </ul>
+      <button class="btn btn-outline-secondary" disabled>Plan actual</button>
+    </div>
+
+    <!-- Student -->
+    <div class="plan-card student" [class.active]="currentPlan === 'student'">
+      <div class="plan-header">
+        <h3>Plan Estudiante 🎓</h3>
+        <div class="current-price">
+          <div class="price">{{ isMonthly ? '$19.900/mes' : '$199.000/año' }}</div>
+          <div class="billing-info">
+            {{ isMonthly ? 'Facturación mensual' : 'Facturación anual' }}
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li>Hasta 10 gastos</li>
+        <li>Estadísticas básicas</li>
+        <li>Diseñado para estudiantes</li>
+      </ul>
+      <button class="btn btn-success" (click)="upgrade('student')" [disabled]="currentPlan === 'student'">
+        {{ currentPlan === 'student' ? 'Plan actual' : 
+           (isMonthly ? 'Activar plan mensual - $19.900' : 'Activar plan anual - $199.000') }}
+      </button>
+    </div>
+
+    <!-- Premium -->
+    <div class="plan-card premium" [class.active]="currentPlan === 'premium'">
+      <div class="plan-header">
+        <h3>Plan Premium 💎</h3>
+        <div class="current-price">
+          <div class="price">{{ isMonthly ? '$39.900/mes' : '$399.000/año' }}</div>
+          <div class="billing-info">
+            {{ isMonthly ? 'Facturación mensual' : 'Facturación anual' }}
+            <span *ngIf="!isMonthly" class="saving-amount">(Ahorras $79.800)</span>
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li>Gastos ilimitados</li>
+        <li>Estadísticas completas</li>
+        <li>Recomendaciones inteligentes</li>
+      </ul>
+      <button class="btn btn-primary" (click)="upgrade('premium')" [disabled]="currentPlan === 'premium'">
+        {{ currentPlan === 'premium' ? 'Plan actual' : 
+           (isMonthly ? 'Activar plan mensual - $39.900' : 'Activar plan anual - $399.000') }}
+      </button>
+    </div>
+  </div>
+</div>

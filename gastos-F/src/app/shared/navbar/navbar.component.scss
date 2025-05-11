@@ -8,6 +8,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;  /* Fijar en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;  /* Asegura que el navbar esté encima de otros elementos */
+  transition: top 0.3s ease; /* Suavizar el movimiento */
+}
+
+/* Asegura que el contenido no quede oculto debajo del navbar */
+.content-wrapper {
+  padding-top: 80px; /* Ajusta este valor según la altura de tu navbar */
 }
 
 /* Logo */

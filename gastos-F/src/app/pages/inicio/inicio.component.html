@@ -1,1 +1,119 @@
-<p>inicio works!</p>
+<div class="inicio-container">
+  <!-- Hero Section con imagen de fondo -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-titulo">
+        <span class="nombre-dinamico">{{ currentName }}</span>,
+        <span class="texto-estatico">¿qué quieres lograr hoy?</span>
+      </h1>      
+      <p class="descripcion">
+        Controla tus gastos no solo por tipo, sino también por emociones. 
+        <span class="highlight">Descubre una nueva forma</span> de manejar tu dinero con Smart Spend.
+      </p>
+      <button class="btn-empezar">
+        <span>¡Empieza ahora!</span>
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+        </svg>
+      </button>
+    </div>
+    <!-- Buscar imagen: "pareja feliz revisando finanzas en tablet" (formato horizontal) -->
+    <img src="/icons/img1.avif" alt="Pareja feliz administrando finanzas" class="hero-image">
+  </div>
+
+  <!-- Carrusel de testimonios -->
+  <section class="testimonios-carrusel">
+    <h2>Lo que dicen nuestros usuarios</h2>
+    <div class="carrusel-container">
+      <div class="testimonio-card">
+        <!-- Buscar imagen: "mujer sonriente retrato" -->
+        <img src="/icons/img2.avif" alt="Usuario satisfecho" class="testimonio-foto">
+        <p>"Smart Spend cambió mi relación con el dinero. Ahora ahorro sin esfuerzo."</p>
+        <div class="testimonio-nombre">- Ana M.</div>
+      </div>
+      <div class="testimonio-card">
+        <!-- Buscar imagen: "hombre sonriente retrato" -->
+        <img src="/icons/img3.jpeg" alt="Usuario satisfecho" class="testimonio-foto">
+        <p>"Por fin entendí mis gastos emocionales. ¡Invaluable!"</p>
+        <div class="testimonio-nombre">- Carlos R.</div>
+      </div>
+      <div class="testimonio-card">
+        <!-- Buscar imagen: "pareja mayor sonriente" -->
+        <img src="/icons/img4.avif" alt="Usuarios satisfechos" class="testimonio-foto">
+        <p>"A nuestros 60 años, por fin controlamos nuestros gastos."</p>
+        <div class="testimonio-nombre">- Rosa y Juan</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de beneficios con iconos e imágenes -->
+  <section class="beneficios-section">
+    <h2>Tu bienestar financiero empieza aquí</h2>
+    
+    <div class="beneficio-card grande">
+      <!-- Buscar imagen: "persona usando app finanzas en móvil" -->
+      <img src="/icons/img5.webp" alt="App de finanzas en móvil" class="beneficio-imagen">
+      <div class="beneficio-contenido">
+        <h3>Control total en tus manos</h3>
+        <p>Registra gastos al instante desde cualquier lugar con nuestra app móvil intuitiva.</p>
+        <ul class="beneficio-lista">
+          <li>📱 Notificaciones inteligentes</li>
+          <li>⏱️ Registro rápido con un toque</li>
+          <li>📊 Visualización instantánea</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beneficio-card inverso grande">
+      <div class="beneficio-contenido">
+        <h3>Emociones bajo control</h3>
+        <p>Identifica patrones de gasto emocional con nuestro sistema único de categorización.</p>
+        <ul class="beneficio-lista">
+          <li>😊 Estado de ánimo al gastar</li>
+          <li>📈 Gráficos de comportamiento</li>
+          <li>🔔 Alertas de gasto impulsivo</li>
+        </ul>
+      </div>
+      <!-- Buscar imagen: "mujer pensando con gráficos financieros" -->
+      <img src="/icons/img6.jpg" alt="Análisis de finanzas emocionales" class="beneficio-imagen">
+    </div>
+  </section>
+
+  <!-- Sección de métricas -->
+  <section class="metricas-section">
+    <div class="metrica-item">
+      <div class="metrica-valor">+5K</div>
+      <div class="metrica-label">Usuarios felices</div>
+      <!-- Buscar icono: "grupo de personas estilo ilustración" -->
+      <img src="/icons/img7.png" alt="Icono usuarios" class="metrica-icon">
+    </div>
+    <div class="metrica-item">
+      <div class="metrica-valor">92%</div>
+      <div class="metrica-label">Satisfacción</div>
+      <!-- Buscar icono: "carita feliz estilo ilustración" -->
+      <img src="/icons/img8.png" alt="Icono satisfacción" class="metrica-icon">
+    </div>
+    <div class="metrica-item">
+      <div class="metrica-valor">30%</div>
+      <div class="metrica-label">Más ahorros</div>
+      <!-- Buscar icono: "alcancía o gráfico de crecimiento" -->
+      <img src="/icons/img9.png" alt="Icono ahorros" class="metrica-icon">
+    </div>
+  </section>
+
+  <!-- Llamado a la acción final -->
+  <section class="cta-final">
+    <!-- Buscar imagen: "personas celebrando metas financieras" -->
+    <img src="/icons/img10.jpg" alt="Celebrando logros financieros" class="cta-imagen">
+    <div class="cta-contenido">
+      <h2>¿Listo para transformar tu relación con el dinero?</h2>
+      <p>Únete a la comunidad Smart Spend y toma el control de tus finanzas hoy mismo.</p>
+      <button class="btn-cta">
+        <span (click)="redirectToRegister()">Crear mi cuenta gratis</span>
+        <svg class="btn-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+        </svg>
+      </button>
+    </div>
+  </section>
+</div>
