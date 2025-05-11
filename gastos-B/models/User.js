@@ -56,6 +56,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     match: [/^\d{10}$/, 'The phone number must be a 10-digit number'] // Validación de teléfono de 10 dígitos
+  },
+plan: {
+  type: String,
+  enum: ['free', 'student', 'premium'],
+  default: 'free'
+},
+  subscription: {
+    type: String,
+    enum: ['monthly', 'annual'],
+    default: 'monthly'
   }
 }, { timestamps: true });
 

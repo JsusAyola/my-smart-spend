@@ -13,6 +13,9 @@ router.get('/me', authMiddleware, authController.getProfile);
 // ←←← Nueva ruta para actualizar perfil (protegido) ←←←
 router.put('/me', authMiddleware, authController.updateProfile);
 
+// Actualizar plan y suscripción
+router.put('/update-plan', authMiddleware, authController.updateUserPlan);
+
 // Logout
 router.post('/logout', authController.logout);
 

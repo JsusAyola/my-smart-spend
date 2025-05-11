@@ -3,29 +3,54 @@ const Expense = require('../models/Expense');
 // 📌 Crear un nuevo gasto
 exports.createExpense = async (req, res) => {
   try {
+    const user = req.user; // Usuario autenticado
+
+    // Definir límites por plan
+    const MAX_EXPENSES = {
+      free: 3,
+      student: 10,
+      premium: Infinity
+    };
+
+    // Obtener el número de gastos actuales del usuario
+    const expenseCount = await Expense.countDocuments({ userId: user.id });
+
+    // Verificar límite según el plan
+    const userLimit = MAX_EXPENSES[user.plan] ?? 3;
+
+    if (expenseCount >= userLimit) {
+      return res.status(403).json({
+        message: `Has alcanzado el límite de gastos (${userLimit}) para el plan ${user.plan}.`
+      });
+    }
+
+    // Validar los datos recibidos
     const { title, amount, category, emotion, date } = req.body;
 
     if (!title || !amount || !category || !emotion) {
       return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
     }
 
+    // Crear nuevo gasto
     const newExpense = new Expense({
       title,
       amount,
       category,
       emotion,
       date: date || Date.now(),
-      userId: req.user.id // 👈 recuerda que authMiddleware agrega req.user
+      userId: user.id
     });
 
     await newExpense.save();
 
     res.status(201).json({ message: 'Gasto creado exitosamente.', expense: newExpense });
+
   } catch (error) {
     console.error('Error creando gasto:', error);
     res.status(500).json({ message: 'Error en el servidor.' });
   }
 };
+
 
 // 📌 Listar gastos del usuario logueado
 exports.getUserExpenses = async (req, res) => {
@@ -70,21 +95,25 @@ exports.getExpenseById = async (req, res) => {
   }
 };
 
-// 📌 Actualizar un gasto existente
 exports.updateExpense = async (req, res) => {
   try {
+    const expenseId = req.params.id;
     const { title, amount, category, emotion, date } = req.body;
-    const updated = await Expense.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user.id },
+
+    // Aquí iría la lógica para actualizar el gasto
+    const updatedExpense = await Expense.findOneAndUpdate(
+      { _id: expenseId, userId: req.user.id },
       { title, amount, category, emotion, date },
       { new: true }
     );
-    if (!updated) {
-      return res.status(404).json({ message: 'Gasto no encontrado.' });
+
+    if (!updatedExpense) {
+      return res.status(404).json({ message: 'Gasto no encontrado' });
     }
-    res.status(200).json({ message: 'Gasto actualizado', expense: updated });
+
+    res.status(200).json({ message: 'Gasto actualizado exitosamente', expense: updatedExpense });
   } catch (error) {
     console.error('Error actualizando gasto:', error);
-    res.status(500).json({ message: 'Error en el servidor.' });
+    res.status(500).json({ message: 'Error en el servidor al actualizar el gasto' });
   }
 };

@@ -77,7 +77,8 @@ exports.register = async (req, res) => {
       goal: goal || null,
       documentType,
       documentNumber,
-      phone
+      phone,
+      plan: 'free'
     });
 
     // Guardar en MongoDB
@@ -103,7 +104,8 @@ exports.register = async (req, res) => {
         goal: newUser.goal,
         documentType: newUser.documentType,
         documentNumber: newUser.documentNumber,
-        phone: newUser.phone
+        phone: newUser.phone,
+         plan: newUser.plan
       }
     });
   } catch (error) {
@@ -252,5 +254,39 @@ exports.updateProfile = async (req, res) => {
       success: false,
       message: 'Error en el servidor al actualizar perfil.'
     });
+  }
+};
+
+// 📌 Actualizar el plan del usuario
+exports.updateUserPlan = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { plan, subscription } = req.body;
+
+    if (!['free', 'student', 'premium'].includes(plan)) {
+      return res.status(400).json({ message: 'Plan no válido.' });
+    }
+
+    if (!['monthly', 'annual'].includes(subscription)) {
+      return res.status(400).json({ message: 'Tipo de suscripción no válido.' });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { plan, subscription },
+      { new: true, select: '-password -__v' }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
+
+    res.status(200).json({
+      message: 'Plan actualizado exitosamente.',
+      user: updatedUser
+    });
+  } catch (error) {
+    console.error('Error actualizando el plan:', error);
+    res.status(500).json({ message: 'Error en el servidor al actualizar el plan.' });
   }
 };
