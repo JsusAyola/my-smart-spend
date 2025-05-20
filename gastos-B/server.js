@@ -18,12 +18,10 @@ app.use(cors({
 app.use(express.json());
 
 // Conexión a MongoDB
-const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB conectado correctamente'))
   .catch((err) => console.error('❌ Error conectando a MongoDB:', err));
-
 
 // Ruta de prueba
 app.get('/', (req, res) => {
