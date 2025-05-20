@@ -5,20 +5,19 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const expensesRoutes = require('./routes/expense.routes');
 
-
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Configuración de CORS
 app.use(cors({
-  origin: 'http://localhost:4200',  // Dirección de tu Frontend Angular
-  credentials: false  // Ya no estamos usando cookies, solo CORS
+  origin: 'https://smart-spend-c2f8b.web.app', // URL de tu frontend en Firebase
+  credentials: false
 }));
 
 // Middlewares
 app.use(express.json());
 
 // Conexión a MongoDB
-
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB conectado correctamente'))
   .catch((err) => console.error('❌ Error conectando a MongoDB:', err));
@@ -28,15 +27,11 @@ app.get('/', (req, res) => {
   res.send('¡Bienvenido a Smart Spend Backend! 🚀');
 });
 
-// Rutas de autenticación y gastos
-app.use('/auth', authRoutes);  // Rutas de autenticación
-app.use('/expenses', expensesRoutes);  // Rutas de gastos
+// Rutas
+app.use('/api/auth', authRoutes);
+app.use('/api/expenses', expensesRoutes);
 
-// Iniciar el servidor
-const PORT = process.env.PORT || 3000;
+// Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
 });
-
-
-// Comentario para forzar commit
