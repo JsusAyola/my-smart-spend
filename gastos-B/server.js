@@ -18,12 +18,12 @@ app.use(cors({
 app.use(express.json());
 
 // Conexión a MongoDB
-mongoose.connect('mongodb://localhost:27017/smart_spend', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ Conectado a MongoDB'))
-.catch(err => console.error('❌ Error conectando a MongoDB:', err));
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB conectado correctamente'))
+  .catch((err) => console.error('❌ Error conectando a MongoDB:', err));
+
 
 // Ruta de prueba
 app.get('/', (req, res) => {
