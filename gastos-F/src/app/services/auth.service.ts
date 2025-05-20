@@ -14,7 +14,7 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl    = 'http://localhost:3000/auth';
+  private baseUrl    = 'https://my-smart-spend.onrender.com/api/auth';
   private isBrowser: boolean;
 
   // ← BehaviorSubject para emitir el user actual

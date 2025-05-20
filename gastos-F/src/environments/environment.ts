@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://my-smart-spend.onrender.com/api', // Tu backend local
   debug: true,
   firebaseConfig: {
     apiKey: "AIzaSyDsPsYakhuxdPL_EJaf1q0lFfDFfF0wBUY",

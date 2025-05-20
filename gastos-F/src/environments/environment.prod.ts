@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://midominio.com/api',
+  apiUrl: 'https://my-smart-spend.onrender.com/api', // Tu backend en Render
   debug: false,
   firebaseConfig: {
     apiKey: "AIzaSyDsPsYakhuxdPL_EJaf1q0lFfDFfF0wBUY",

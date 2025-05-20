@@ -14,7 +14,7 @@ export interface Expense {
 
 @Injectable({ providedIn: 'root' })
 export class ExpenseService {
-  private url = 'http://localhost:3000/expenses';
+  private url = 'https://my-smart-spend.onrender.com/api/expenses';
 
   constructor(private http: HttpClient) {}
 
