@@ -1,36 +1,33 @@
 <div class="contacto-container">
-    <div class="contacto-header">
-      <h1>¡Conversemos!</h1>
-      <p>¿Tienes dudas, sugerencias o quieres colaborar con nosotros?  
-      Estamos aquí para ayudarte.</p>
-    </div>
-  
-    <div class="contacto-contenido">
-      <!-- Formulario -->
-      <form class="formulario-contacto">
-        <input type="text" placeholder="Tu nombre" required>
-        <input type="email" placeholder="Tu correo electrónico" required>
-        <textarea placeholder="Tu mensaje..." rows="5" required></textarea>
-        <button type="submit" class="btn-enviar">
-          Enviar mensaje
-        </button>
-      </form>
-  
-      <!-- Información de contacto -->
-      <div class="info-contacto">
-        <div class="info-item">
-          <span class="info-icono">📍</span>
-          <p>Cartagena - Colombia</p>
-        </div>
-        <div class="info-item">
-          <span class="info-icono">📞</span>
-          <p>+57 300 123 4567</p>
-        </div>
-        <div class="info-item">
-          <span class="info-icono">✉️</span>
-          <p>soporte&#64;smartspend.com</p>
-        </div>
+  <div class="contacto-header">
+    <h1>¡Conversemos!</h1>
+    <p>¿Tienes dudas, sugerencias o quieres colaborar con nosotros?  
+    Estamos aquí para ayudarte.</p>
+  </div>
+
+  <div class="contacto-contenido">
+    <!-- Formulario FUNCIONAL -->
+    <form class="formulario-contacto" (submit)="enviarMensaje($event)">
+      <input type="text" placeholder="Tu nombre" [(ngModel)]="nombre" name="nombre" required>
+      <input type="email" placeholder="Tu correo electrónico" [(ngModel)]="correo" name="correo" required>
+      <textarea placeholder="Tu mensaje..." rows="5" [(ngModel)]="mensaje" name="mensaje" required></textarea>
+      <button type="submit" class="btn-enviar">Enviar mensaje</button>
+    </form>
+
+    <!-- Información de contacto -->
+    <div class="info-contacto">
+      <div class="info-item">
+        <span class="info-icono">📍</span>
+        <p>Cartagena - Colombia</p>
+      </div>
+      <div class="info-item">
+        <span class="info-icono">📞</span>
+        <p>+57 300 123 4567</p>
+      </div>
+      <div class="info-item">
+        <span class="info-icono">✉️</span>
+        <p>spendsmart86&#64;gmail.com</p>
       </div>
     </div>
   </div>
-  
+</div>
