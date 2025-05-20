@@ -36,7 +36,7 @@ export class ExpenseComponent {
 
   categories = [
     'Alimentación', 'Transporte', 'Salud', 'Entretenimiento',
-    'Educación', 'Hogar', 'Deudas', 'Ahorro', 'Otros'
+    'Educación', 'Hogar', 'Deudas', 'Ahorro'
   ];
   emotions = [
     'Por obligación', 'Por placer', 'Por estrés o ansiedad',

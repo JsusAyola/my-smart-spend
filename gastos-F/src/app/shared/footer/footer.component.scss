@@ -1,0 +1,55 @@
+.footer {
+  background-color: #1f1f1f;
+  color: #e2e8f0;
+  padding: 2rem;
+  font-family: 'Urbanist', sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.footer-section h2 {
+  color: #a78bfa;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-section p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+  color: #e2e8f0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #a78bfa;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}

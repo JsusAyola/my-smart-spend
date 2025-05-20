@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit {
     'Pagar deudas',
     'Invertir',
     'Viajar',
-    'Otro'
   ];
 
   constructor(private fb: FormBuilder, private auth: AuthService) {

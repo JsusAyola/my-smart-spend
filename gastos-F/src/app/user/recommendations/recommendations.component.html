@@ -1,22 +1,56 @@
 <div class="recos-container">
-    <h2>📋 Recomendaciones</h2>
+  <h2>📋 Recomendaciones Financieras</h2>
   
-    <!-- Recomendaciones dinámicas -->
-    <section class="dynamic-rec">
-      <h3>Basado en tus límites</h3>
-      <ul>
-        <li *ngFor="let msg of recos">{{ msg }}</li>
-      </ul>
-    </section>
-  
-    <!-- Ejemplos de contexto local -->
-    <section class="local-context">
-      <h3>Contexto financiero local</h3>
-      <div *ngFor="let ex of ejemplos" class="example-card">
-        <p class="question">{{ ex.pregunta }}</p>
-        <p class="value">{{ ex.valorRecomendado }}</p>
-        <p class="explain">{{ ex.explicacion }}</p>
-      </div>
-    </section>
+  <!-- Estado de carga -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Analizando tus gastos...</p>
   </div>
-  
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-state">
+    <p>⚠️ {{ error }}</p>
+    <button (click)="loadExpenses()">Reintentar</button>
+  </div>
+
+  <!-- Resumen rápido -->
+  <div *ngIf="!isLoading && !error" class="quick-summary">
+    <div class="summary-card">
+      <span>Total este mes:</span>
+      <strong>{{ totalThisMonth | currency }}</strong>
+    </div>
+    <div class="summary-card" *ngIf="limits.global > 0">
+      <span>Límite global:</span>
+      <strong>{{ limits.global | currency }}</strong>
+    </div>
+  </div>
+
+  <!-- Recomendaciones dinámicas -->
+  <section *ngIf="!isLoading && !error" class="dynamic-rec">
+    <h3>Análisis de tus gastos - {{ currentMonth }}</h3>
+    
+    <div class="reco-card" *ngFor="let reco of sortedRecommendations" [class]="reco.severity">
+      <div class="severity-indicator"></div>
+      <div class="reco-content">
+        <p>{{ reco.message }}</p>
+        <div *ngIf="reco.percentage" class="progress-container">
+          <div class="progress-bar" [style.width.%]="Math.min(reco.percentage, 100)"></div>
+          <span>{{ reco.percentage }}%</span>
+        </div>
+      </div>
+      <div *ngIf="reco.category" class="category-tag">
+        {{ reco.category }}
+      </div>
+    </div>
+  </section>
+
+  <!-- Consejos generales -->
+  <section class="general-tips">
+    <h3>💡 Consejos para ahorrar</h3>
+    <ul>
+      <li>Revisa tus suscripciones recurrentes y cancela las que no uses</li>
+      <li>Compara precios antes de comprar artículos costosos</li>
+      <li>Establece un presupuesto semanal para gastos discrecionales</li>
+    </ul>
+  </section>
+</div>

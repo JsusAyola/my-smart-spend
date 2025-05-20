@@ -1,61 +1,102 @@
 <div class="limits-container">
-    <h2>📊 Gestionar Límites</h2>
-  
-    <form [formGroup]="limitsForm" (ngSubmit)="saveLimits()">
-  
-      <!-- Card global -->
-      <div class="card global-card">
+  <h2>📊 Gestión de Límites de Gastos</h2>
+  <p class="subtitle">Configura tus límites mensuales para mantener el control de tus finanzas</p>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Cargando tus datos financieros...</p>
+  </div>
+
+  <form [formGroup]="limitsForm" (ngSubmit)="saveLimits()" *ngIf="!isLoading">
+    <!-- Card global -->
+    <div class="card global-card" [class.modified]="limitsForm.value.global !== originalLimits.global">
+      <div class="card-header">
         <h3>Límite Mensual Global</h3>
-        <select formControlName="global" class="limit-select">
+        <span class="modified-badge" *ngIf="limitsForm.value.global !== originalLimits.global">Modificado</span>
+      </div>
+      
+      <div class="form-group">
+        <label for="global-limit">Monto máximo mensual:</label>
+        <select id="global-limit" formControlName="global" class="limit-select">
           <option [ngValue]="null" disabled>Selecciona un monto</option>
           <option *ngFor="let opt of presetOptions" [ngValue]="opt">
             {{ opt | currency:'COP':'symbol':'1.0-0' }}
           </option>
+          <option [ngValue]="0">Sin límite</option>
         </select>
-        <button type="submit" class="btn-save" [disabled]="!limitsForm.value.global">
-          Guardar
-        </button>
-  
-        <div *ngIf="limitsForm.value.global" class="progress-info">
-          Has gastado {{ totalThisMonth | currency:'COP' }} /
-          {{ limitsForm.value.global | currency:'COP' }}
-          ({{ percent(totalThisMonth, limitsForm.value.global) }}%)
+        <small *ngIf="limitsForm.get('global')?.invalid && limitsForm.get('global')?.touched" class="error">
+          Por favor selecciona un límite válido
+        </small>
+      </div>
+
+      <div *ngIf="limitsForm.value.global" class="progress-container">
+        <div class="progress-info">
+          <span>Gastado:</span>
+          <strong>{{ totalThisMonth | currency:'COP':'symbol':'1.0-0' }}</strong>
+          <span>de</span>
+          <strong>{{ limitsForm.value.global | currency:'COP':'symbol':'1.0-0' }}</strong>
+          <span>({{ percent(totalThisMonth, limitsForm.value.global) }}%)</span>
         </div>
         <div class="progress-bar">
-          <div class="fill"
+          <div class="progress-fill"
                [style.width.%]="percent(totalThisMonth, limitsForm.value.global)"
-               [ngClass]="pctClass(percent(totalThisMonth, limitsForm.value.global))">
+               [class]="getProgressClass(percent(totalThisMonth, limitsForm.value.global))">
           </div>
         </div>
       </div>
-  
-      <!-- Grid de categorías -->
-      <div class="grid-cats" formGroupName="byCategory">
-        <div *ngFor="let cat of categories" class="card cat-card">
+
+      <button type="submit" class="btn-save" [disabled]="!hasChanges">
+        <span *ngIf="limitsForm.value.global !== originalLimits.global">Actualizar</span>
+        <span *ngIf="limitsForm.value.global === originalLimits.global">Guardar</span>
+      </button>
+    </div>
+
+    <!-- Grid de categorías -->
+    <div class="categories-header">
+      <h3>Límites por Categoría</h3>
+      <p>Configura límites específicos para cada categoría de gasto</p>
+    </div>
+
+    <div class="grid-cats" formGroupName="byCategory">
+      <div *ngFor="let cat of categories" class="card cat-card" [class]="getCategoryStatus(cat)">
+        <div class="card-header">
           <h4>{{ cat }}</h4>
+          <button type="button" class="btn-reset" (click)="resetCategory(cat)" 
+                  *ngIf="limitsForm.value.byCategory[cat]">
+            ✕
+          </button>
+        </div>
+        
+        <div class="form-group">
           <select [formControlName]="cat" class="limit-select">
             <option [ngValue]="null" disabled>Sin límite</option>
             <option *ngFor="let opt of presetOptions" [ngValue]="opt">
               {{ opt | currency:'COP':'symbol':'1.0-0' }}
             </option>
           </select>
-  
-          <ng-container *ngIf="limitsForm.value.byCategory[cat]">
-            <div class="progress-bar small">
-              <div class="fill"
-                   [style.width.%]="percent(totalsByCat[cat]||0, limitsForm.value.byCategory[cat])"
-                   [ngClass]="pctClass(percent(totalsByCat[cat]||0, limitsForm.value.byCategory[cat]))">
-              </div>
+        </div>
+
+        <div *ngIf="limitsForm.value.byCategory[cat]" class="progress-container">
+          <div class="progress-info">
+            <span>{{ (totalsByCat[cat] || 0) | currency:'COP':'symbol':'1.0-0' }}</span>
+            <span>/</span>
+            <span>{{ limitsForm.value.byCategory[cat] | currency:'COP':'symbol':'1.0-0' }}</span>
+            <span>({{ percent(totalsByCat[cat] || 0, limitsForm.value.byCategory[cat]) }}%)</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill"
+                 [style.width.%]="percent(totalsByCat[cat] || 0, limitsForm.value.byCategory[cat])"
+                 [class]="getProgressClass(percent(totalsByCat[cat] || 0, limitsForm.value.byCategory[cat]))">
             </div>
-            <div class="progress-info small">
-              {{ (totalsByCat[cat]||0) | currency:'COP' }} /
-              {{ limitsForm.value.byCategory[cat] | currency:'COP' }}
-              ({{ percent(totalsByCat[cat]||0, limitsForm.value.byCategory[cat]) }}%)
-            </div>
-          </ng-container>
+          </div>
         </div>
       </div>
-  
-    </form>
-  </div>
-  
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-save-all" [disabled]="!hasChanges">
+        Guardar todos los cambios
+      </button>
+    </div>
+  </form>
+</div>
